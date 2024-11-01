@@ -21,7 +21,7 @@
       "canoes": 10,
       "resources": [
         {
-          "resource_name": "Pineapples",
+          "resource_name": "Pineapple",
           "quantity": 50
         }
       ]
@@ -47,7 +47,7 @@
       "canoes": 250,
       "resources": [
         {
-          "resource_name": "Fish",
+          "resource_name": "Coconut",
           "quantity": 100
         }
       ]
