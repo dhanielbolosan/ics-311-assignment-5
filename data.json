@@ -1,0 +1,63 @@
+{
+  "islands": [
+    {
+      "name": "Hawaii",
+      "latitude": 19.8987,
+      "longitude": -155.6659,
+      "resources": [
+        {
+          "resource_name": "Coffee",
+          "quantity": 1000
+        },
+        {
+          "resource_name": "Macadamia nuts",
+          "quantity": 500
+        }
+      ]
+    },
+    {
+      "name": "Rapanui",
+      "latitude": -27.1127,
+      "longitude": -109.3497,
+      "resources": [
+        {
+          "resource_name": "Pineapples",
+          "quantity": 150
+        }
+      ]
+    },
+    {
+      "name": "New Zealand",
+      "latitude": -40.9006,
+      "longitude": 174.886,
+      "resources": [
+        {
+          "resource_name": "Kiwi",
+          "quantity": 250
+        }
+      ]
+    },
+    {
+      "name": "Samoa",
+      "latitude": -13.759,
+      "longitude": -172.1046,
+      "resources": [
+        {
+          "resource_name": "Fish",
+          "quantity": 100
+        }
+      ]
+    },
+    {
+      "name": "Tonga",
+      "latitude": -21.179,
+      "longitude": -175.1982,
+      "resources": [
+        {
+          "resource_name": "Fish",
+          "quantity": 750
+        }
+      ]
+    }
+  ]
+}
