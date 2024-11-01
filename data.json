@@ -4,14 +4,12 @@
       "name": "Hawaii",
       "latitude": 19.8987,
       "longitude": -155.6659,
+      "population": 1400000,
+      "canoes": 500,
       "resources": [
         {
           "resource_name": "Coffee",
           "quantity": 1000
-        },
-        {
-          "resource_name": "Macadamia nuts",
-          "quantity": 500
         }
       ]
     },
@@ -19,10 +17,12 @@
       "name": "Rapanui",
       "latitude": -27.1127,
       "longitude": -109.3497,
+      "population": 8000,
+      "canoes": 10,
       "resources": [
         {
           "resource_name": "Pineapples",
-          "quantity": 150
+          "quantity": 50
         }
       ]
     },
@@ -30,6 +30,8 @@
       "name": "New Zealand",
       "latitude": -40.9006,
       "longitude": 174.886,
+      "population": 5000000,
+      "canoes": 1000,
       "resources": [
         {
           "resource_name": "Kiwi",
@@ -41,6 +43,8 @@
       "name": "Samoa",
       "latitude": -13.759,
       "longitude": -172.1046,
+      "population": 200000,
+      "canoes": 250,
       "resources": [
         {
           "resource_name": "Fish",
@@ -52,6 +56,8 @@
       "name": "Tonga",
       "latitude": -21.179,
       "longitude": -175.1982,
+      "population": 100000,
+      "canoes": 150,
       "resources": [
         {
           "resource_name": "Fish",
