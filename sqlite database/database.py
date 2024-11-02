@@ -72,7 +72,7 @@ def seed_db(cursor=None):
                     ''', resources_data)
     
 # reset database to initial state
-def reset_database():
+def reset_db():
     with connect_db() as cursor:
         cursor.execute('DELETE FROM resources')
         cursor.execute('DELETE FROM islands')
@@ -112,4 +112,9 @@ def update_island_data(island_id, population, canoes):
                         UPDATE islands SET population = ?, canoes = ? WHERE id = ?
                     ''', (population, canoes, island_id))
         
-# need to implement updating resources data
+# update resource data
+def update_resource_data(island_id, resource_name, quantity):
+    with connect_db() as cursor:
+        cursor.execute('''
+                        UPDATE resources SET quantity = ? WHERE island_id = ? AND resource_name = ?
+                    ''', (quantity, island_id, resource_name))

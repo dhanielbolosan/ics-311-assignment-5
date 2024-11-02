@@ -1,4 +1,4 @@
-from database import create_db, get_islands_data, update_island_data, reset_database, get_resources_data
+from database import create_db, reset_db, get_islands_data, update_island_data, get_resources_data, update_resource_data
 from graph import create_graph, print_graph
 
 def print_island_data(islands):
@@ -26,7 +26,7 @@ def print_island_data(islands):
 def main():
     # create & reset database to initial state
     create_db()
-    reset_database()
+    reset_db()
 
     # get & print island data
     islands_data = get_islands_data()
@@ -36,14 +36,18 @@ def main():
     graph = create_graph(islands_data)
     print_graph(graph)
 
-    # testing changing the database w/ samoa
+   # testing changing an island data w/ samoa
     samoa = next(island for island in islands_data if island['name'] == 'Samoa')
-    original_population = samoa['population']
 
-    if samoa['population'] == original_population:
-        samoa['population'] *= 2
-        samoa['canoes'] += 50
-        update_island_data(samoa['id'], samoa['population'], samoa['canoes'])
+    # update Samoa's population and canoes
+    samoa['population'] *= 2
+    samoa['canoes'] += 50
+    update_island_data(samoa['id'], samoa['population'], samoa['canoes'])
+
+    # update resource quantity
+    resources = get_resources_data(samoa['id'])
+    coconut_quantity = next((quantity for name, quantity in resources if name == "Coconut"), 0)
+    update_resource_data(samoa['id'], "Coconut", coconut_quantity + 1000)
 
     print("\nChanging Samoa's Data...\n\nModified Data for Samoa:")
     print_island_data([samoa])
