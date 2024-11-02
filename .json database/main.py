@@ -13,7 +13,7 @@ def print_data(islands_data):
 
 def main():
     # loading & printing data
-    islands_data = load_islands_data('data.json')
+    islands_data = load_islands_data('.json database/data.json')
     print_data(islands_data)
 
     # create & printing graph
