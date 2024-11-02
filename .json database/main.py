@@ -1,5 +1,5 @@
 from data_reader import load_islands_data
-from graph import haversine, create_graph, print_graph
+from graph import create_graph, print_graph
 
 def print_data(islands_data):
     for island in islands_data['islands']:
@@ -7,6 +7,7 @@ def print_data(islands_data):
         print(f"  Latitude: {island['latitude']}")
         print(f"  Longitude: {island['longitude']}")
         print(f"  Population: {island['population']:,}")
+        print(f"  Canoes: {island['canoes']}:,")
         print("  Resources:")
         for resource in island['resources']:
             print(f"    - {resource['resource_name']}: {resource['quantity']}")
