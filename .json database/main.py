@@ -7,7 +7,7 @@ def print_data(islands_data):
         print(f"  Latitude: {island['latitude']}")
         print(f"  Longitude: {island['longitude']}")
         print(f"  Population: {island['population']:,}")
-        print(f"  Canoes: {island['canoes']}:,")
+        print(f"  Canoes: {island['canoes']:,}")
         print("  Resources:")
         for resource in island['resources']:
             print(f"    - {resource['resource_name']}: {resource['quantity']}")
