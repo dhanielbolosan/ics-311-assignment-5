@@ -5,6 +5,7 @@ def print_island_data(islands):
     printed_islands = set()
 
     for island in islands:
+        # print islands & prevent repeating
         if island['name'] not in printed_islands:
             printed_islands.add(island['name'])
             print(f"Island: {island['name']}")
@@ -13,7 +14,7 @@ def print_island_data(islands):
             print(f"  Population: {island['population']:,}")
             print(f"  Canoes: {island['canoes']:,}")
             
-            # Check if resources are available
+            # check & print if resources are available
             resources = get_resources_data(island['id'])
             if resources:
                 print("  Resources:")
@@ -23,9 +24,11 @@ def print_island_data(islands):
                 print("  Resources: No resources available")
 
 def main():
+    # create & reset database to initial state
     create_db()
     reset_database()
 
+    # get & print island data
     islands_data = get_islands_data()
     print_island_data(islands_data)
 
@@ -33,6 +36,7 @@ def main():
     graph = create_graph(islands_data)
     print_graph(graph)
 
+    # testing changing the database w/ samoa
     samoa = next(island for island in islands_data if island['name'] == 'Samoa')
     original_population = samoa['population']
 

@@ -1,6 +1,7 @@
 import sqlite3
 from contextlib import contextmanager
 
+# prevent repeating connection for every function
 @contextmanager
 def connect_db():
     conn = sqlite3.connect('islands.db')
@@ -11,6 +12,7 @@ def connect_db():
         conn.commit()
         conn.close()
 
+# initialize database
 def create_db():
     with connect_db() as cursor:
         cursor.execute('''
@@ -37,6 +39,7 @@ def create_db():
         if cursor.execute('SELECT COUNT(*) from islands').fetchone()[0] == 0:
             seed_db(cursor)         
             
+# seed database with data
 def seed_db(cursor=None):
     if cursor is None:
         with connect_db() as cursor:
@@ -68,13 +71,14 @@ def seed_db(cursor=None):
                        INSERT INTO resources (island_id, resource_name, quantity) VALUES (?, ?, ?)
                     ''', resources_data)
     
+# reset database to initial state
 def reset_database():
     with connect_db() as cursor:
         cursor.execute('DELETE FROM resources')
         cursor.execute('DELETE FROM islands')
         seed_db(cursor)
     
-
+# get island data
 def get_islands_data():
     with connect_db() as cursor:
         cursor.execute('''
@@ -92,6 +96,7 @@ def get_islands_data():
             })
     return islands
 
+# get resources data
 def get_resources_data(island_id):
     with connect_db() as cursor:
         cursor.execute('''
@@ -100,9 +105,11 @@ def get_resources_data(island_id):
         resources = cursor.fetchall()
     return resources
 
-
+# udpate island data
 def update_island_data(island_id, population, canoes):
     with connect_db() as cursor:
         cursor.execute('''
                         UPDATE islands SET population = ?, canoes = ? WHERE id = ?
                     ''', (population, canoes, island_id))
+        
+# need to implement updating resources data
