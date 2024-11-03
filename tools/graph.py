@@ -1,5 +1,6 @@
-from haversine_formula import haversine
+from tools.haversine_formula import haversine
 
+# creates the graph used for the problems
 def create_graph(islands_data):
     graph = {}
 

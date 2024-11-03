@@ -47,7 +47,7 @@ def seed_db(cursor=None):
             seed_db(cursor)
             return
     
-    if cursor.execute('SELECT COUNT(*) FROM resources').fetchone()[0] == 0:
+    if cursor.execute('SELECT COUNT(*) FROM resources').fetchone()[0] == 0:     # prevent duplication
         islands_data = [
             ("Hawaii", 19.8987, -155.6659, 1400000, 500, 500),
             ("Rapanui", -27.1127, -109.3497, 8000, 10, 500),
@@ -60,7 +60,7 @@ def seed_db(cursor=None):
                            INSERT INTO islands (name, latitude, longitude, population, canoes, canoe_capacity) VALUES (?, ?, ?, ?, ?, ?)
                         ''', islands_data)
 
-        # quantity of each resource is in pounds
+        # quantity of each resource is in kgs
         # ex. 1000 kg of coffee in Hawaii
         resources_data = [
             (1, "Coffee", 1000),    # Hawaii

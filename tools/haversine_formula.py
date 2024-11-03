@@ -1,6 +1,12 @@
 import math
 
-# https://www.geeksforgeeks.org/haversine-formula-to-find-distance-between-two-points-on-a-sphere/
+'''
+https://www.geeksforgeeks.org/haversine-formula-to-find-distance-between-two-points-on-a-sphere/
+
+Calculates the distance between two points on the Earth given their latitudes and longitudes
+
+This distance is used as weights for this graph
+'''
 def haversine(lat1, lon1, lat2, lon2):
 
     dLat = (lat2 - lat1) * math.pi / 180.0
