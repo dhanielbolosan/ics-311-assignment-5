@@ -26,7 +26,9 @@ def create_graph(islands_data):
     return graph
 
 def print_graph(graph):
-    for island1, edges in graph.items():
-        print(f"Edges from {island1}:")
-        for island2, distance in edges.items():
-            print(f"  - {island2}: {distance:.2f} km")
+    for island, edges in graph.items():
+        print(f"Edges from {island}:")
+        for destination, distance in edges.items():
+            if destination != island:
+                print(f"  - {destination}: {distance:.2f} km")
+        print()

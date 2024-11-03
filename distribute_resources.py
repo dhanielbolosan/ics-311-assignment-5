@@ -1,28 +1,30 @@
 from dijkstra import dijkstra
 
-def distribute_resource(graph, source_island, resource_quantity, canoe_capacity):
-    # Calculate shortest paths from source island
-    shortest_paths = dijkstra(graph, source_island)
-    
-    # Sort islands by distance from the source
-    sorted_islands = sorted(shortest_paths.items(), key=lambda x: x[1])
-
+def distribute_resource(graph, source_island, total_quantity, canoe_capacity):
     distribution = []
-    remaining_resources = resource_quantity
+    remaining_quantity = total_quantity
+    source_data = graph[source_island]
 
-    for island, distance in sorted_islands:
-        if island == source_island or remaining_resources <= 0:
-            continue
+    sorted_destinations = sorted(
+        ((destination, distance) for destination, distance in source_data.items() if destination != source_island),
+        key=lambda x: x[1]
+    )
 
-        # Determine how much to distribute to this island
-        to_distribute = min(remaining_resources, canoe_capacity)
+    num_destinations = len(sorted_destinations)
+    quantity_per_destination = remaining_quantity / num_destinations if num_destinations > 0 else 0
+
+    for destination, distance in sorted_destinations:
+        if remaining_quantity <= 0:
+            break
         
-        # Append distribution details to the plan
+        send_quantity = min(quantity_per_destination, canoe_capacity, remaining_quantity)
+        
         distribution.append({
-            'to': island,
+            'destination': destination,
             'distance': distance,
-            'quantity': to_distribute  # Corrected key name to 'quantity'
+            'quantity': send_quantity
         })
-        remaining_resources -= to_distribute
-    
+
+        remaining_quantity -= send_quantity
+
     return distribution

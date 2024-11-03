@@ -14,6 +14,7 @@ def print_island_data(islands):
             print(f"  Longitude: {island['longitude']}")
             print(f"  Population: {island['population']:,}")
             print(f"  Canoes: {island['canoes']:,}")
+            print(f"  Canoe Capacity: {island['canoe_capacity']:,} lbs")
             
             # check & print if resources are available
             resources = get_resources_data(island['id'])
@@ -37,6 +38,7 @@ def main():
     graph = create_graph(islands_data)
     print_graph(graph)
 
+    '''
    # testing changing an island data w/ samoa
     samoa = next(island for island in islands_data if island['name'] == 'Samoa')
 
@@ -52,6 +54,7 @@ def main():
 
     print("\nChanging Samoa's Data...\n\nModified Data for Samoa:")
     print_island_data([samoa])
+    '''
 
     # testing resource distribution
     source_island = islands_data[0]
@@ -65,10 +68,9 @@ def main():
         return
     
     resource_name, initial_quantity = resources[0]
-    print(f"\nDistributing {initial_quantity:,} of {resource_name} from {source_island['name']}...\n")
+    print(f"\nDistributing {initial_quantity:,} kgs of {resource_name} from {source_island['name']}...\n")
     
-    # canoe capacity: need to implement into database later
-    canoe_capacity = 300
+    canoe_capacity = source_island['canoe_capacity']
 
     if initial_quantity <= 0:
         print("Not enough resources to distribute")
@@ -78,7 +80,8 @@ def main():
 
     print("Distribution:")
     for entry in distribution:
-        print(f"Sending {entry['quantity']:,} units to {entry['to']} (Distance: {entry['distance']:.2f} km)")
+        print(f"Sending {entry['quantity']:,} kgs to {entry['destination']} (Distance: {entry['distance']:.2f} km)")
+
 
 if __name__ == '__main__':
     main()

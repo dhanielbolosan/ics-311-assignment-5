@@ -22,7 +22,8 @@ def create_db():
                         latitude REAL,
                         longitude REAL,
                         population INTEGER,
-                        canoes INTEGER
+                        canoes INTEGER,
+                        canoe_capacity INTEGER
                         )
                     ''')
 
@@ -48,17 +49,19 @@ def seed_db(cursor=None):
             return
     
     islands_data = [
-                ("Hawaii", 19.8987, -155.6659, 1400000, 500),
-                ("Rapanui", -27.1127, -109.3497, 8000, 10),
-                ("New Zealand", -40.9006, 174.886, 5000000, 1000),
-                ("Samoa", -13.759, -172.1046, 200000, 250),
-                ("Tonga", -21.179, -175.1982, 100000, 150),
+                ("Hawaii", 19.8987, -155.6659, 1400000, 500, 500),
+                ("Rapanui", -27.1127, -109.3497, 8000, 10, 500),
+                ("New Zealand", -40.9006, 174.886, 5000000, 1000, 500),
+                ("Samoa", -13.759, -172.1046, 200000, 250, 500),
+                ("Tonga", -21.179, -175.1982, 100000, 150, 500),
             ]
 
     cursor.executemany('''
-                       INSERT INTO islands (name, latitude, longitude, population, canoes) VALUES (?, ?, ?, ?, ?)
+                       INSERT INTO islands (name, latitude, longitude, population, canoes, canoe_capacity) VALUES (?, ?, ?, ?, ?, ?)
                     ''', islands_data)
 
+    # quantity of each resource is in pounds
+    # ex. 1000 kg of coffee in Hawaii
     resources_data = [
                 (1, "Coffee", 1000),    # Hawaii
                 (2, "Pineapple", 50),   # Rapanui
@@ -74,15 +77,17 @@ def seed_db(cursor=None):
 # reset database to initial state
 def reset_db():
     with connect_db() as cursor:
-        cursor.execute('DELETE FROM resources')
-        cursor.execute('DELETE FROM islands')
+        cursor.execute('DROP TABLE IF EXISTS resources')
+        cursor.execute('DROP TABLE IF EXISTS islands')
+        create_db()
         seed_db(cursor)
+
     
 # get island data
 def get_islands_data():
     with connect_db() as cursor:
         cursor.execute('''
-                    SELECT id, name, latitude, longitude, population, canoes FROM islands
+                    SELECT id, name, latitude, longitude, population, canoes, canoe_capacity FROM islands
                    ''')
         islands = []
         for row in cursor.fetchall():
@@ -92,7 +97,8 @@ def get_islands_data():
                 'latitude': row[2],
                 'longitude': row[3],
                 'population': row[4],
-                'canoes': row[5]
+                'canoes': row[5],
+                'canoe_capacity': row[6]
             })
     return islands
 
