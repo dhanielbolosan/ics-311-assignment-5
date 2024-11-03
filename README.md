@@ -2,6 +2,6 @@
 
 ## People
 
-Dhaniel Bolosan
-Sujung Nam
-Kimberly Nguyen
+- Dhaniel Bolosan
+- Sujung Nam
+- Kimberly Nguyen
