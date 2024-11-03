@@ -1,5 +1,6 @@
 from database import create_db, reset_db, get_islands_data, update_island_data, get_resources_data, update_resource_data
 from graph import create_graph, print_graph
+from distribute_resources import distribute_resource
 
 def print_island_data(islands):
     printed_islands = set()
@@ -51,6 +52,33 @@ def main():
 
     print("\nChanging Samoa's Data...\n\nModified Data for Samoa:")
     print_island_data([samoa])
+
+    # testing resource distribution
+    source_island = islands_data[0]
+    source_island_id = source_island['id']
+
+    # get resources from source island
+    resources = get_resources_data(source_island_id)
+
+    if not resources:
+        print(f"\n{source_island['name']} has no resources to distribute")
+        return
+    
+    resource_name, initial_quantity = resources[0]
+    print(f"\nDistributing {initial_quantity:,} of {resource_name} from {source_island['name']}...\n")
+    
+    # canoe capacity: need to implement into database later
+    canoe_capacity = 300
+
+    if initial_quantity <= 0:
+        print("Not enough resources to distribute")
+        return
+
+    distribution = distribute_resource(graph, source_island['name'], initial_quantity, canoe_capacity)
+
+    print("Distribution:")
+    for entry in distribution:
+        print(f"Sending {entry['quantity']:,} units to {entry['to']} (Distance: {entry['distance']:.2f} km)")
 
 if __name__ == '__main__':
     main()
