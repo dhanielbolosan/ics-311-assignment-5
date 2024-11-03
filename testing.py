@@ -14,7 +14,7 @@ def print_island_data(islands):
             print(f"  Longitude: {island['longitude']}")
             print(f"  Population: {island['population']:,}")
             print(f"  Canoes: {island['canoes']:,}")
-            print(f"  Canoe Capacity: {island['canoe_capacity']:,} lbs")
+            print(f"  Canoe Capacity: {island['canoe_capacity']:,} kgs")
             
             # check & print if resources are available
             resources = get_resources_data(island['id'])
@@ -26,9 +26,10 @@ def print_island_data(islands):
                     quantity = resource[1]
                     if resource_name not in printed_resources:
                         printed_resources.add(resource_name)
-                        print(f"    - {resource_name}: {quantity:,}")
+                        print(f"    - {resource_name}: {quantity:,} kgs")
             else:
                 print("  Resources: No resources available")
+            print()
 
 def main():
     # create & reset database to initial state
@@ -60,7 +61,8 @@ def main():
     print("\nChanging Samoa's Data...\n\nModified Data for Samoa:")
     print_island_data([samoa])
     '''
-
+    
+    '''
     # testing resource distribution
     source_island = islands_data[0]
     source_island_id = source_island['id']
@@ -86,6 +88,8 @@ def main():
     print("Distribution:")
     for entry in distribution:
         print(f"Sending {entry['quantity']:,} kgs to {entry['destination']} (Distance: {entry['distance']:.2f} km)")
+    '''
+    
 
 if __name__ == '__main__':
     main()

@@ -45,34 +45,34 @@ def seed_db(cursor=None):
     if cursor is None:
         with connect_db() as cursor:
             seed_db(cursor)
-
             return
     
-    islands_data = [
-                ("Hawaii", 19.8987, -155.6659, 1400000, 500, 500),
-                ("Rapanui", -27.1127, -109.3497, 8000, 10, 500),
-                ("New Zealand", -40.9006, 174.886, 5000000, 1000, 500),
-                ("Samoa", -13.759, -172.1046, 200000, 250, 500),
-                ("Tonga", -21.179, -175.1982, 100000, 150, 500),
-            ]
+    if cursor.execute('SELECT COUNT(*) FROM resources').fetchone()[0] == 0:
+        islands_data = [
+            ("Hawaii", 19.8987, -155.6659, 1400000, 500, 500),
+            ("Rapanui", -27.1127, -109.3497, 8000, 10, 500),
+            ("New Zealand", -40.9006, 174.886, 5000000, 1000, 500),
+            ("Samoa", -13.759, -172.1046, 200000, 250, 500),
+            ("Tonga", -21.179, -175.1982, 100000, 150, 500),
+        ]
 
-    cursor.executemany('''
-                       INSERT INTO islands (name, latitude, longitude, population, canoes, canoe_capacity) VALUES (?, ?, ?, ?, ?, ?)
-                    ''', islands_data)
+        cursor.executemany('''
+                           INSERT INTO islands (name, latitude, longitude, population, canoes, canoe_capacity) VALUES (?, ?, ?, ?, ?, ?)
+                        ''', islands_data)
 
-    # quantity of each resource is in pounds
-    # ex. 1000 kg of coffee in Hawaii
-    resources_data = [
-                (1, "Coffee", 1000),    # Hawaii
-                (2, "Pineapple", 50),   # Rapanui
-                (3, "Kiwi", 250),       # New Zealand
-                (4, "Coconut", 100),    # Samoa
-                (5, "Fish", 750)        # Tonga
-            ]
+        # quantity of each resource is in pounds
+        # ex. 1000 kg of coffee in Hawaii
+        resources_data = [
+            (1, "Coffee", 1000),    # Hawaii
+            (2, "Pineapple", 50),   # Rapanui
+            (3, "Kiwi", 250),       # New Zealand
+            (4, "Coconut", 100),    # Samoa
+            (5, "Fish", 750)        # Tonga
+        ]
 
-    cursor.executemany('''
-                       INSERT INTO resources (island_id, resource_name, quantity) VALUES (?, ?, ?)
-                    ''', resources_data)
+        cursor.executemany('''
+                           INSERT INTO resources (island_id, resource_name, quantity) VALUES (?, ?, ?)
+                        ''', resources_data)
     
 # reset database to initial state
 def reset_db():
