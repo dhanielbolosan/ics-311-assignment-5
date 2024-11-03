@@ -19,14 +19,17 @@ def display_resources(island):
     print()
 
 def main():
+    # create & reset database to initial state
     create_db()
     reset_db()
 
+    # get & print island data
     islands_data = get_islands_data()
     graph = create_graph(islands_data)
 
     display_islands(islands_data)
 
+    # get user input
     try:
         island_choice = int(input("Choose an island to distribute resources: "))
         source_island = islands_data[island_choice - 1]
@@ -50,7 +53,8 @@ def main():
 
         for entry in distribution:
             print(f"Sending {entry['quantity']:,} kgs to {entry['destination']} (Distance: {entry['distance']:.2f} km)")
-                
+
+    # handle exceptions     
     except (ValueError, IndexError):
             print("Invalid input. Please try again.")
 
