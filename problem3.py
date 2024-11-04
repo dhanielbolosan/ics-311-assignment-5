@@ -246,6 +246,8 @@ class Problem3Solver:
         target_islands_trip_data_list.sort(key=lambda t : t[1])
 
         # Print solution
+        print()
+        print('> Printing the order of islands to send the resource (in increasing order of round-trip time)')
         available_canoes_counter = self.num_canoes
         visitable_islands = [self.graph.get_island_at_index(source_index).get_name()]
         for i in range(len(target_islands_trip_data_list)):
@@ -265,22 +267,25 @@ class Problem3Solver:
                     print(f'Unreachable island due to no remaining canoes: {target_island_name}')
                 else:
                     available_canoes_counter -= 1
-                    print(f'Sending resource to target island #{i + 1}: {target_island_name}, Round-trip distance: {target_island_round_trip_distance}, Distance to island: {target_island_distance_to_island}, Path to island: {target_island_path_to_island}, Path from island: {target_island_path_from_island}')
+                    print(f'{i + 1}. Sending resource to target island {target_island_name} (round-trip distance: {target_island_round_trip_distance})\n  (Distance to island: {target_island_distance_to_island}, Path to island: {target_island_path_to_island}, Path from island: {target_island_path_from_island})')
+                    print()
                     visitable_islands.append(target_island_name)
             else:
                 print(
-                    f'Sending resource to target island #{i + 1}: {target_island_name}, Round-trip distance: {target_island_round_trip_distance}, Distance to island: {target_island_distance_to_island}, Path to island: {target_island_path_to_island}, Path from island: {target_island_path_from_island}')
+                    f'{i + 1}. Sending resource to target island {target_island_name} (round-trip distance: {target_island_round_trip_distance})\n  (Distance to island: {target_island_distance_to_island}, Path to island: {target_island_path_to_island}, Path from island: {target_island_path_from_island})')
+                print()
                 visitable_islands.append(target_island_name)
 
         # Summarize
-        print('SUMMARY')
-        print(f'Covered islands: {visitable_islands}')
+        print('> Printing summary')
+        print(f'  Order of islands where the resource reached: {visitable_islands}')
         not_covered_island_names = set()
         for island in islands:
             not_covered_island_names.add(island.get_name())
         for visitable_island in visitable_islands:
             not_covered_island_names.remove(visitable_island)
-        print(f'Not covered islands: {not_covered_island_names}')
+        if len(not_covered_island_names) > 0:
+            print(f'  Islands that the resource could not be distributed to: {list(not_covered_island_names)}')
 
 def solve_problem_3_test():
     test_data_1 = TestData1()
@@ -326,9 +331,9 @@ def solve_problem_3():
         display_islands(island_data_list)
 
         # Process user input
-        source_island_name = input('> Enter the source island name (e.g., Hawaii, Samoa):')
-        resource_prep_time = int(input('> Enter the time it takes for a resource to be ready:'))
-        num_canoes = int(input('> Enter the number of canoes:'))
+        source_island_name = input('> (1/3) Enter the source island name (e.g., Hawaii, or Samoa): ')
+        resource_prep_time = int(input('> (2/3) Enter the time it takes for a resource to be ready (e.g., 1000): '))
+        num_canoes = int(input('> (3/3) Enter the number of canoes (e.g., 2): '))
 
         # Solve
         solver = Problem3Solver(graph, graph.get_island(source_island_name), resource_prep_time, num_canoes)
