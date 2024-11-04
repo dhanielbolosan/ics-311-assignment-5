@@ -4,33 +4,25 @@ from tools.graph import create_graph, print_graph
 from tools.distribute_resources import distribute_resource
 
 def print_island_data(islands):
-    printed_islands = set()
-
     for island in islands:
-        # print islands & prevent repeating
-        if island['name'] not in printed_islands:
-            printed_islands.add(island['name'])
-            print(f"Island: {island['name']}")
-            print(f"  Latitude: {island['latitude']}")
-            print(f"  Longitude: {island['longitude']}")
-            print(f"  Population: {island['population']:,}")
-            print(f"  Canoes: {island['canoes']:,}")
-            print(f"  Canoe Capacity: {island['canoe_capacity']:,} kgs")
+        print(f"Island: {island['name']}")
+        print(f"  Latitude: {island['latitude']}")
+        print(f"  Longitude: {island['longitude']}")
+        print(f"  Population: {island['population']:,}")
+        print(f"  Canoes: {island['canoes']:,}")
+        print(f"  Canoe Capacity: {island['canoe_capacity']:,} kgs")
             
-            # check & print if resources are available
-            resources = get_resources_data(island['id'])
-            printed_resources = set()
-            if resources:
-                print("  Resources:")
-                for resource in resources:
-                    resource_name = resource[0]
-                    quantity = resource[1]
-                    if resource_name not in printed_resources:
-                        printed_resources.add(resource_name)
-                        print(f"    - {resource_name}: {quantity:,} kgs")
-            else:
+        # check & print if resources are available
+        resources = get_resources_data(island['id'])
+        if resources:
+            print("  Resources:")
+            for resource in resources:
+                resource_name = resource[0]
+                quantity = resource[1]
+                print(f"    - {resource_name}: {quantity:,} kgs")
+        else:
                 print("  Resources: No resources available")
-            print()
+        print()
 
 def main():
     # create & reset database to initial state

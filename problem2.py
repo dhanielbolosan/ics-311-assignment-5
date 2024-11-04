@@ -52,7 +52,7 @@ def main():
         print(f"\nDistributing {initial_quantity:,} kgs of {resource_name} from {source_island['name']}")
 
         for entry in distribution:
-            print(f"Sending {entry['quantity']:,} kgs to {entry['destination']} (Distance: {entry['distance']:.2f} km)")
+            print(f"Sending {entry['quantity']:.2f} kgs to {entry['destination']} (Distance: {entry['distance']:.2f} km)")
 
     # handle exceptions     
     except (ValueError, IndexError):
