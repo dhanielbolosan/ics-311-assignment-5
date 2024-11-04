@@ -77,7 +77,7 @@ def seed_db(cursor=None):
         resources_data = [
             (1, "Taro", 8000),                  # American Samoa
             (1, "Breadfruit", 6000),
-            (1, "Fish", 12000),
+            (1, "Sea Grapes", 3000),
             (2, "Black Pearls", 500),           # Cook Islands
             (2, "Bananas", 15000),
             (2, "Coconut Oil", 8000),
@@ -99,24 +99,24 @@ def seed_db(cursor=None):
             (8, "Pine Seeds", 3000),            # Norfolk Island
             (8, "Passionfruit", 2000),
             (8, "Guava", 4000),
-            (9, "Banana", 3000),                # Pitcairn Islands
+            (9, "Arrow Root", 3000),            # Pitcairn Islands
             (9, "Sugarcane", 1500),
-            (9, "Breadfruit", 1000),
+            (9, "Miro", 2500),
             (10, "Tava Root", 3000),            # Rotuma
-            (10, "Yams", 4000),
-            (10, "Fish", 5000),
+            (10, "Yam Flour", 4000),
+            (10, "Breadfruit Flour", 2000),
             (11, "Cocoa Beans", 20000),         # Samoa
             (11, "Tapa Cloth", 5000),
             (11, "Kava Roots", 10000),
             (12, "Pandanus Fruit", 3000),       # Tokelau
             (12, "Coconut Crab", 100),
-            (12, "Fish", 5000),
-            (13, "Yams", 3000),                 # Tonga
+            (12, "Driftwood Sculptures", 500),
+            (13, "Casava", 3000),               # Tonga
             (13, "Mats", 6000),
             (13, "Sea Cucumbers", 4000),
             (14, "Sea Salt", 5000),             # Tuvalu    
             (14, "Pandanus Leaves", 3000),
-            (14, "Breafruit", 2000),
+            (14, "Taro Leaves", 2000),
             (15, "Root Vegetables", 5000),      # Wallis and Futuna
             (15, "Coral Jewelry", 100),
             (15, "Pigs", 3000),
