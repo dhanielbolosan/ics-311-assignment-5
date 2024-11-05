@@ -2,6 +2,7 @@
 from tools.database import create_db, reset_db, get_islands_data, update_island_data, get_resources_data, update_resource_data, get_experiences_data, update_experience_data
 from tools.graph import create_graph, print_graph
 from tools.distribute_resources import distribute_resource
+from tools.dijkstra import dijkstra
 
 def print_island_data(islands):
     for island in islands:
@@ -48,8 +49,9 @@ def main():
 
     # create & printing graph
     graph = create_graph(islands_data)
-    # print_graph(graph)
+    print_graph(graph)
 
+    '''
     print_experiences(islands_data)
 
     island1 = "Hawaii"
@@ -61,7 +63,8 @@ def main():
     canoespeed = 10
     time = distance / canoespeed
     print(f"{time:.2f} hours")
-    
+    '''
+
     '''
    # testing changing an island data w/ samoa
     samoa = next(island for island in islands_data if island['name'] == 'Samoa')

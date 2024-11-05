@@ -48,7 +48,8 @@ def create_graph(islands_data):
 def print_graph(graph):
     for island, edges in graph.items():
         print(f"Edges from {island}:")
-        for destination, distance in edges.items():
+        sorted_edges = sorted(edges.items(), key=lambda x: x[1])
+        for destination, distance in sorted_edges:
             if destination != island:
                 print(f"  - {destination}: {distance:.2f} km")
         print()
