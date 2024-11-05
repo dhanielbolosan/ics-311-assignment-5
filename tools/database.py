@@ -37,6 +37,17 @@ def create_db():
                         )
                     ''')
         
+        cursor.execute('''
+                       CREATE TABLE IF NOT EXISTS
+                       experiences (
+                       id INTEGER PRIMARY KEY,
+                       island_id INTEGER,
+                       experience_name TEXT,
+                       time INTEGER,
+                       FOREIGN KEY (island_id) REFERENCES islands (id)
+                       )
+                    ''')
+        
         if cursor.execute('SELECT COUNT(*) from islands').fetchone()[0] == 0:
             seed_db(cursor)         
             
@@ -125,12 +136,53 @@ def seed_db(cursor=None):
         cursor.executemany('''
                            INSERT INTO resources (island_id, resource_name, quantity) VALUES (?, ?, ?)
                         ''', resources_data)
+        
+        # experiences of each island with time in hours
+        experiences_data = [
+            (1, "Taro Harvesting", 3),                      # American Samoa
+            (1, "Dance Workshop", 2),
+            (2, "Pearl Diving", 4),                         # Cook Islands
+            (2, "Coconut Tasting", 3),
+            (3, "Moai Tour", 5),                            # Easter Island
+            (3, "Rapanui Dance", 2),
+            (4, "Vanilla Tour", 3),                         # French Polynesia
+            (4, "Lagoon Snorkeling", 4),
+            (5, "Pineapple Tour", 4),                       # Hawaii
+            (5, "Skydiving", 1),
+            (6, "Maori Performance", 2),                    # New Zealand
+            (6, "Mountain Hike", 8),
+            (7, "Honey Harvesting", 3),                     # Niue
+            (7, "Cave Exploration", 2),
+            (8, "Garden Walk", 2),                          # Norfolk Island
+            (8, "Bird Watching", 3),
+            (9, "Wood Carving", 3),                         # Pitcairn Islands
+            (9, "Island Hike", 4),
+            (10, "Root Preparation", 3),                    # Rotuma
+            (10, "Storytelling", 2),
+            (11, "Cocoa Tour", 4),                          # Samoa
+            (11, "Kava Ceremony", 2),
+            (12, "Weaving Workshop", 3),                    # Tokelau
+            (12, "Crab Habitat Tour", 2),
+            (13, "Mats Weaving", 3),                        # Tonga
+            (13, "Reef Snorkeling", 3),
+            (14, "Salt Production", 2),                     # Tuvalu    
+            (14, "Canoe Demo", 3),
+            (15, "Jewelry Making", 3),                      # Wallis and Futuna
+            (15, "Animal Sanctuary", 4),
+        ]
+
+
+        cursor.executemany('''
+                           INSERT INTO experiences (island_id, experience_name, time) VALUES (?, ?, ?)
+                        ''', experiences_data)
+
     
 # reset database to initial state
 def reset_db():
     with connect_db() as cursor:
         cursor.execute('DROP TABLE IF EXISTS resources')
         cursor.execute('DROP TABLE IF EXISTS islands')
+        cursor.execute('DROP TABLE IF EXISTS experiences')
         create_db()
         seed_db(cursor)
 
@@ -176,3 +228,19 @@ def update_resource_data(island_id, resource_name, quantity):
         cursor.execute('''
                         UPDATE resources SET quantity = ? WHERE island_id = ? AND resource_name = ?
                     ''', (quantity, island_id, resource_name))
+        
+# get experiences data
+def get_experiences_data(island_id):
+    with connect_db() as cursor:
+        cursor.execute('''
+                       SELECT experience_name, time FROM experiences WHERE island_id = ?
+                ''', (island_id,))
+        experiences = cursor.fetchall()
+    return experiences
+
+# update resource data
+def update_experience_data(island_id, experience_name, time):
+    with connect_db() as cursor:
+        cursor.execute('''
+                        UPDATE experiences SET quantity = ? WHERE island_id = ? AND experience_name = ?
+                    ''', (time, island_id, experience_name))

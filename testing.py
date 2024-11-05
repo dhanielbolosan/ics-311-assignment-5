@@ -1,5 +1,5 @@
 # testing program for database, graph, and problem #2
-from tools.database import create_db, reset_db, get_islands_data, update_island_data, get_resources_data, update_resource_data
+from tools.database import create_db, reset_db, get_islands_data, update_island_data, get_resources_data, update_resource_data, get_experiences_data, update_experience_data
 from tools.graph import create_graph, print_graph
 from tools.distribute_resources import distribute_resource
 
@@ -24,6 +24,19 @@ def print_island_data(islands):
                 print("  Resources: No resources available")
         print()
 
+def print_experiences(islands):
+    for island in islands:
+        experiences = get_experiences_data(island['id'])
+        print(f"Experiences for {island['name']}:")
+        if experiences:
+            for experience in experiences:
+                experience_name = experience[0]
+                experience_time = experience[1]
+                print(f"  - {experience_name}: {experience_time} hours")
+        else:
+            print("  No experiences available")
+        print()
+
 def main():
     # create & reset database to initial state
     create_db()
@@ -31,12 +44,24 @@ def main():
 
     # get & print island data
     islands_data = get_islands_data()
-    print_island_data(islands_data)
+    # print_island_data(islands_data)
 
     # create & printing graph
     graph = create_graph(islands_data)
-    print_graph(graph)
+    # print_graph(graph)
 
+    print_experiences(islands_data)
+
+    island1 = "Hawaii"
+    island2 = "New Zealand"
+
+    distance = graph[island1][island2]
+    print(f"{distance:2f} km")
+
+    canoespeed = 10
+    time = distance / canoespeed
+    print(f"{time:.2f} hours")
+    
     '''
    # testing changing an island data w/ samoa
     samoa = next(island for island in islands_data if island['name'] == 'Samoa')
