@@ -16,10 +16,11 @@ class Graph:
         return self.adjacency_list.get(island, [])
 
 def dijkstra(graph, experiences, start):
-    queue = [(0, start, set())]  # (total_time, island_id, experiences_collected)
+    queue = [(0, start, set())] 
     visited = {}
     best_experiences = {}
-    paths = {start: []}  # Store the path taken to reach each island
+    #Stores the path taken to reach each island
+    paths = {start: []}  
 
     while queue:
         total_time, current, exp_total = heapq.heappop(queue)
@@ -28,25 +29,25 @@ def dijkstra(graph, experiences, start):
             continue
         visited[current] = total_time
         
-        # Update the best experiences for the current island
+        #Update the best experiences for the current island
         best_experiences[current] = exp_total
 
-        # Add new experiences for this island
+        #Creates new experience
         current_experiences = experiences.get(current, set())
         new_experiences = exp_total.union(current_experiences)
 
         for neighbor, travel_time in graph.get_neighbors(current):
             new_time = total_time + travel_time
             
-            # If we find a shorter path to the neighbor, update it
+            #Updates if a shorter path is found
             if neighbor not in visited or new_time < visited[neighbor]:
                 heapq.heappush(queue, (new_time, neighbor, new_experiences))
-                paths[neighbor] = paths[current] + [current]  # Track the path taken
+                paths[neighbor] = paths[current] + [current]
 
     return visited, best_experiences, paths
 
 def display_exp(island_id, island_name, distance = 0):
-    # Fetch experiences for the specific island by its ID
+    #Gets experiences for the island from ID
     experiences = get_experiences_data(island_id)
     if experiences:
         print(f"Experiences on {island_name} (Travel time: {distance} hours):")
@@ -104,7 +105,7 @@ def main():
         'Wallis and Futuna': {'Tonga'}
     }
 
-    # Sample experiences with weights
+    #Sample experiences with weights
     exps = [
         ('Hawaii', 'Samoa', 1),
         ('Hawaii', 'Tonga', 2),
@@ -120,17 +121,17 @@ def main():
         graph.add_edge(from_island, to_island, weight)
         graph.add_edge(to_island, from_island, weight)
 
-    # Display islands
+    #shows islands
     display_islands(island_data_list)
 
-    # User input for starting island
+    #User input for starting island
     try:
         starting_island = input("Where would you like to travel to first? ")
         
-        # Run Dijkstra's algorithm
+        #Run Dijkstra's algorithm
         distances, experiences_collected, paths = dijkstra(graph, paths, starting_island)
         
-        # Find optimal area to travel to maximize experiences in the least time
+        #Find optimal area to travel to maximize experiences in the least time
         optimal_island, max_experiences, min_time, optimal_path = find_optimal_experience(distances, experiences_collected, paths)
         
         #Shows the path taken
