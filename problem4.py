@@ -1,7 +1,8 @@
 #@Author Kimberly Nguyen
 import sys
 import heapq
-from tools.database import create_db, get_islands_data
+from database import create_db, get_islands_data
+from graph import create_graph
 
 class Graph:
     def __init__(self):
@@ -68,7 +69,8 @@ def display_islands(islands):
     print()
 
 def main():
-    create_db()
+    create_db() 
+    
     island_data_list = get_islands_data()
     graph = Graph()
     paths = {

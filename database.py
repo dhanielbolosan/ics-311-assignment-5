@@ -48,12 +48,25 @@ def seed_db(cursor=None):
             return
     
     if cursor.execute('SELECT COUNT(*) FROM resources').fetchone()[0] == 0:     # prevent duplication
+        # https://en.wikipedia.org/wiki/Polynesia <- used for list of polynesian nations
+        # https://en.wikipedia.org/wiki/H%C5%8Dk%C5%ABle%CA%BBa <- used for a reference of canoe capaicty  
+        # [nation, latitude, longitude, population, canoes (1 canoe per 50 people), canoe capacity (4500 kg fixed)]
         islands_data = [
-            ("Hawaii", 19.8987, -155.6659, 1400000, 500, 500),
-            ("Rapanui", -27.1127, -109.3497, 8000, 10, 500),
-            ("New Zealand", -40.9006, 174.886, 5000000, 1000, 500),
-            ("Samoa", -13.759, -172.1046, 200000, 250, 500),
-            ("Tonga", -21.179, -175.1982, 100000, 150, 500),
+            ("American Samoa", -14.2710, -170.1322, 47000, 940, 4500),
+            ("Cook Islands", -21.2367, -159.7777, 14000, 280, 4500),
+            ("Easter Island", -27.1127, -109.3497, 8000, 160, 4500),
+            ("French Polynesia", -17.6797, -149.4068, 280000, 5600, 4500),
+            ("Hawaii", 19.8987, -155.6659, 1400000, 28000, 4500),
+            ("New Zealand", -40.9006, 174.886, 5000000, 100000, 4500),
+            ("Niue", -19.0544, -169.8672, 1800, 36, 4500),
+            ("Norfolk Island", -29.0408, 167.9547, 2000, 40, 4500),
+            ("Pitcairn Islands", -24.3768, -128.3242, 50, 1, 4500),
+            ("Rotuma", -12.5025, 177.0724, 1600, 32, 4500),
+            ("Samoa", -13.759, -172.1046, 220000, 4400, 4500),
+            ("Tokelau", -9.2002, -171.8484, 2500, 50, 4500),
+            ("Tonga", -21.179, -175.1982, 100000, 2000, 4500),
+            ("Tuvalu", -7.1095, 177.6493, 10000, 200, 4500),
+            ("Wallis and Futuna", -14.2938, -178.1165, 11000, 220, 4500)
         ]
 
         cursor.executemany('''
@@ -61,13 +74,52 @@ def seed_db(cursor=None):
                         ''', islands_data)
 
         # quantity of each resource is in kgs
-        # ex. 1000 kg of coffee in Hawaii
         resources_data = [
-            (1, "Coffee", 1000),    # Hawaii
-            (2, "Pineapple", 50),   # Rapanui
-            (3, "Kiwi", 250),       # New Zealand
-            (4, "Coconut", 100),    # Samoa
-            (5, "Fish", 750)        # Tonga
+            (1, "Taro", 8000),                  # American Samoa
+            (1, "Breadfruit", 6000),
+            (1, "Sea Grapes", 3000),
+            (2, "Black Pearls", 500),           # Cook Islands
+            (2, "Bananas", 15000),
+            (2, "Coconut Oil", 8000),
+            (3, "Obsidian Tools", 300),         # Easter Island
+            (3, "Sweet Potatoes", 1500),
+            (3, "Moai Stone Carvings", 100),
+            (4, "Vanilla", 3000),               # French Polynesia
+            (4, "Noni Juice", 20000),
+            (4, "Mother-of-Pearl Shells", 3000),
+            (5, "Coffee", 300000),              # Hawaii
+            (5, "Pineapple", 250000),
+            (5, "Kahelelani Shell Leis", 1000),
+            (6, "Jade", 200),                   # New Zealand
+            (6, "Kiwi", 50000),
+            (6, "Flax", 30000),
+            (7, "Honey", 5000),                 # Niue
+            (7, "Coconuts", 8000),
+            (7, "Limes", 3000),
+            (8, "Pine Seeds", 3000),            # Norfolk Island
+            (8, "Passionfruit", 2000),
+            (8, "Guava", 4000),
+            (9, "Arrow Root", 3000),            # Pitcairn Islands
+            (9, "Sugarcane", 1500),
+            (9, "Miro", 2500),
+            (10, "Tava Root", 3000),            # Rotuma
+            (10, "Yam Flour", 4000),
+            (10, "Breadfruit Flour", 2000),
+            (11, "Cocoa Beans", 20000),         # Samoa
+            (11, "Tapa Cloth", 5000),
+            (11, "Kava Roots", 10000),
+            (12, "Pandanus Fruit", 3000),       # Tokelau
+            (12, "Coconut Crab", 100),
+            (12, "Driftwood Sculptures", 500),
+            (13, "Casava", 3000),               # Tonga
+            (13, "Mats", 6000),
+            (13, "Sea Cucumbers", 4000),
+            (14, "Sea Salt", 5000),             # Tuvalu    
+            (14, "Pandanus Leaves", 3000),
+            (14, "Taro Leaves", 2000),
+            (15, "Root Vegetables", 5000),      # Wallis and Futuna
+            (15, "Coral Jewelry", 100),
+            (15, "Pigs", 3000),
         ]
 
         cursor.executemany('''

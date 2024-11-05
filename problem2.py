@@ -1,7 +1,7 @@
 # interactive program for problem #2
-from tools.database import create_db, reset_db, get_islands_data, update_island_data, get_resources_data, update_resource_data
-from tools.graph import create_graph, print_graph
-from tools.distribute_resources import distribute_resource
+from database import create_db, reset_db, get_islands_data, update_island_data, get_resources_data, update_resource_data
+from graph import create_graph, print_graph
+from distribute_resources import distribute_resource
 
 # print islands
 def display_islands(islands):
