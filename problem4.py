@@ -1,8 +1,9 @@
 #@Author Kimberly Nguyen
 import sys
 import heapq
-from database import create_db, get_islands_data
-from graph import create_graph
+from database import create_db, reset_db, get_islands_data, update_island_data, get_resources_data, update_resource_data
+from graph import create_graph, print_graph
+from distribute_resources import distribute_resource
 
 class Graph:
     def __init__(self):
@@ -70,7 +71,9 @@ def display_islands(islands):
 
 def main():
     create_db() 
+    reset_db()
     
+
     island_data_list = get_islands_data()
     graph = Graph()
     paths = {
@@ -104,6 +107,8 @@ def main():
     try:
         starting_island = input("Where would you like to travel to first? ")
         
+
+
         # Run Dijkstra's algorithm
         distances, experiences_collected, paths = dijkstra(graph, paths, starting_island)
         
