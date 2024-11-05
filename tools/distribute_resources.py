@@ -19,6 +19,8 @@ def distribute_resource(graph, source_island, total_quantity, canoe_capacity):
     num_destinations = len(sorted_destinations)
     quantity_per_destination = remaining_quantity / num_destinations if num_destinations > 0 else 0
 
+    total_canoes_needed = (total_quantity + canoe_capacity - 1) // canoe_capacity
+
 
     # iterate through each destination and distribute
     for destination, distance in sorted_destinations:
@@ -29,7 +31,7 @@ def distribute_resource(graph, source_island, total_quantity, canoe_capacity):
         send_quantity = min(quantity_per_destination, remaining_quantity)
 
         # calculate how many canoes are needed to be send
-        canoes_sent = (send_quantity + canoe_capacity - 1) // canoe_capacity
+        canoes_sent = total_canoes_needed if send_quantity > 0 else 0
 
         # calculate actual quantity that can be sent with the available canoes
         actual_send_quantity = min(send_quantity, canoes_sent * canoe_capacity)
